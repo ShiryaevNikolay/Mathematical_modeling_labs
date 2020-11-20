@@ -30,6 +30,7 @@ def openFile(filePath):
 
 # Функция рисование графиков
 def paintGraph(inputData, points):
+    plt.grid(True)
     # Если пользователь ввел одно число
     if len(inputData) == 1:
         # Если ввели 0, то рисуем все графики

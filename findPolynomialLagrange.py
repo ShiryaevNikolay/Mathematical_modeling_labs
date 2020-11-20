@@ -31,5 +31,4 @@ def getPolynomialLagrange(x, y, graph):
     xnew = np.linspace(np.min(x), np.max(x), 100)
     ynew = polynomialLagrange(x, y, xnew)
     graph.plot(x, y, 'o', xnew, ynew)
-    graph.grid(True)
     return graph

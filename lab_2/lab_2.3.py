@@ -1,6 +1,6 @@
 import functions as fun
 import numpy as np
-import lab_2.piecewice_linear_interpolation as polinomial
+import lab_2.piecewice_parabolic_interpolation as polinomial
 
 points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
 
@@ -14,7 +14,7 @@ def findPolinomial(x, y):
     y = np.array(y, dtype=float)
     # Находим новые координаты
     xnew = np.linspace(np.min(x), np.max(x), 100)
-    ynew = [polinomial.piecewice_linear_interpolation(x, y, xl) for xl in xnew]
+    ynew = [polinomial.piecewice_parabolic_interpolation(x, y, xl) for xl in xnew]
     graph.plot(x, y, 'o', xnew, ynew)
     return graph
 

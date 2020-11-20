@@ -8,7 +8,7 @@ inputData = fun.inputUser(points)
 graph = fun.paintGraph(inputData, points)
 
 # Функция нахождения координат для кусочно-линейной интерполяции
-def findPolinomial(x, y):
+def findNewCoordinates(x, y):
     # Оригинальные значения координат
     x = np.array(x, dtype=float)
     y = np.array(y, dtype=float)
@@ -24,9 +24,9 @@ if len(inputData) == 1:
     if int(inputData[0]) == 0:
         # Пробегаемся по каждому набору координат отдельного графика
         for point in range(len(points)):
-            graph = findPolinomial(point[0], point[1])
+            graph = findNewCoordinates(point[0], point[1])
     else:   # Иначе рисуем один график
-        graph = findPolinomial(points[int(inputData[0])-1][0], points[int(inputData[0])-1][1])
+        graph = findNewCoordinates(points[int(inputData[0]) - 1][0], points[int(inputData[0]) - 1][1])
 elif len(inputData) == 2:   # Если пользователь ввел диапозон
     # Записываем границы диапозона в переменные
     minValue = int(inputData[0])-1
@@ -34,6 +34,6 @@ elif len(inputData) == 2:   # Если пользователь ввел диа�
     print(minValue, " ", maxValue)
     # Пробегаемся по каждому набору координат отдельного графика
     for point in range(minValue, maxValue):
-        graph = findPolinomial(points[point][0], points[point][1])
+        graph = findNewCoordinates(points[point][0], points[point][1])
 
 graph.show()

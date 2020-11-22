@@ -1,21 +1,21 @@
 import functions as fun
 import numpy as np
-from scipy.interpolate import interp1d
+from scipy import interpolate
 
 points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
 
 inputData = fun.inputUser(points)
 graph = fun.paintGraph(inputData, points)
 
-# Функция нахождения координат для кусочно-линейной интерполяции
+# Функция нахождения координат для сплайн интерполяции (стандартной библиотеки python)
 def findNewCoordinates(x, y):
     # Оригинальные значения координат
     x = np.array(x, dtype=float)
     y = np.array(y, dtype=float)
     # Находим новые координаты
     xnew = np.linspace(np.min(x), np.max(x), 100)
-    ynew = interp1d(x, y, kind='cubic')(xnew)
-    graph.plot(x, y, 'o', xnew, ynew)
+    ynew = interpolate.UnivariateSpline(x, y)
+    graph.plot(x, y, 'o', xnew, ynew(xnew), 'g', lw=3)
     return graph
 
 # Если пользователь ввел одно число

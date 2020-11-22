@@ -14,8 +14,9 @@ def findNewCoordinates(x, y):
     y = np.array(y, dtype=float)
     # Находим новые координаты
     xnew = np.linspace(np.min(x), np.max(x), 100)
-    ynew = interpolate.UnivariateSpline(x, y)
-    graph.plot(x, y, 'o', xnew, ynew(xnew), 'g', lw=3)
+    tck = interpolate.splrep(x, y, s=0)
+    ynew = interpolate.splev(xnew, tck, der=0)
+    graph.plot(x, y, 'o', xnew, ynew)
     return graph
 
 # Если пользователь ввел одно число

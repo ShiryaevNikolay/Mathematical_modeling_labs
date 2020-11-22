@@ -1,6 +1,6 @@
 import functions as fun
 import numpy as np
-import lab_2.piecewice_parabolic_interpolation as interpolation
+# import lab_2.piecewice_parabolic_interpolation as interpolation
 
 points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
 
@@ -13,9 +13,10 @@ def findNewCoordinates(x, y):
     x = np.array(x, dtype=float)
     y = np.array(y, dtype=float)
     # Находим новые координаты
-    xnew = np.linspace(np.min(x), np.max(x), 100)
-    ynew = [interpolation.piecewice_parabolic_interpolation(x, y, xl) for xl in xnew]
-    graph.plot(x, y, 'o', xnew, ynew)
+    for i in range(1, len(x)-1):
+        xnew = np.linspace(np.min(x[i-1]), np.max(x[i+1]), 100)
+        ynew = [fun.piecewice_parabolic_interpolation(x, y, i, xl) for xl in xnew]
+        graph.plot(xnew, ynew)
     return graph
 
 # Если пользователь ввел одно число

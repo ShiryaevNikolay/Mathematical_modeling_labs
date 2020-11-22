@@ -1,22 +1,37 @@
 import functions as fun
 import numpy as np
-# from lab_2.piecewice_linear_interpolation import piecewice_linear_interpolation
-# import lab_2.piecewice_linear_interpolation as interpolation
+from findPolynomialLagrange import polynomialLagrange
+from scipy import interpolate
 
 points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
 
 inputData = fun.inputUser(points)
 graph = fun.paintGraph(inputData, points)
 
-# Функция нахождения координат для кусочно-линейной интерполяции
 def findNewCoordinates(x, y):
     # Оригинальные значения координат
     x = np.array(x, dtype=float)
     y = np.array(y, dtype=float)
     # Находим новые координаты
     xnew = np.linspace(np.min(x), np.max(x), 100)
-    ynew = [fun.piecewice_linear_interpolation(x, y, xl) for xl in xnew]
-    graph.plot(x, y, 'o', xnew, ynew)
+    graph.plot(x, y, 'o')
+    f = []
+    # Полином Лагранджа
+    f.append(polynomialLagrange(x, y, xnew))
+    # Кусочно-линейная интерполяция
+    temp = [fun.piecewice_linear_interpolation(x, y, xl) for xl in xnew]
+    f.append(temp)
+    # Сплайн
+    tck = interpolate.splrep(x, y, s=0)
+    f.append(interpolate.splev(xnew, tck, der=0))
+    # Добавляем графики
+    for ynew in f:
+        graph.plot(xnew, ynew)
+    # Кусочно-параболическая интерполяция
+    for i in range(1, len(x)-1):
+        xtemp = np.linspace(np.min(x[i-1]), np.max(x[i+1]), 100)
+        ytemp = [fun.piecewice_parabolic_interpolation(x, y, i, xl) for xl in xtemp]
+        graph.plot(xtemp, ytemp)
     return graph
 
 # Если пользователь ввел одно число

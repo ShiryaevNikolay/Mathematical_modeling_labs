@@ -19,6 +19,7 @@ def findNewCoordinates(x, y):
         graph.plot(xnew, ynew)
     return graph
 
+
 # Если пользователь ввел одно число
 if len(inputData) == 1:
     # Если ввели 0, то рисуем все графики

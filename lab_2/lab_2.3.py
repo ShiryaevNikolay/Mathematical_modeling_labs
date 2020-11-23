@@ -16,7 +16,18 @@ def findNewCoordinates(x, y):
     for i in range(1, len(x)-1):
         xnew = np.linspace(np.min(x[i-1]), np.max(x[i+1]), 100)
         ynew = [fun.piecewice_parabolic_interpolation(x, y, i, xl) for xl in xnew]
-        graph.plot(xnew, ynew)
+        # Если это первая парабола, то рисуем ее целиком и переходим к следующей параболе
+        if i == 1:
+            graph.plot(xnew, ynew)
+            continue
+        # Массивы для хранения только второй половины пораболы
+        xtemp = []
+        ytemp = []
+        # Пробегаем по второй половине массивов xnew и ynew и заполняем новые массивы xtemp и  temp
+        for j in range(len(xnew) // 2, len(xnew)):
+            xtemp.append(xnew[j])
+            ytemp.append(ynew[j])
+        graph.plot(xtemp, ytemp)
     return graph
 
 

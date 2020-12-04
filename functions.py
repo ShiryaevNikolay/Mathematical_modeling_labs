@@ -38,19 +38,19 @@ def paintGraph(inputData, points):
             # Пробегаемся по каждому набору координат отдельного графика
             for point in range(len(points)):
                 # Создаем таблицу координат
-                df1 = pd.DataFrame({"x": points[point][0], "y": points[point][1]})
+                df1 = pd.DataFrame({"x1": points[point][0], "y": points[point][1]})
                 # Выводим в консоль для наглядности
                 print(df1)
                 # Строим график для текущего набора координат
-                plt.scatter(df1["x"], df1["y"])
+                plt.scatter(df1["x1"], df1["y"])
             return plt
         else:   # Иначе рисуем один график
             # Создаем таблицу координат
-            df1 = pd.DataFrame({"x": points[int(inputData[0])-1][0], "y": points[int(inputData[0])-1][1]})
+            df1 = pd.DataFrame({"x1": points[int(inputData[0])-1][0], "y": points[int(inputData[0])-1][1]})
             # Выводим в консоль для наглядности
             print(df1)
             # Строим график для текущего набора координат
-            plt.scatter(df1["x"], df1["y"])
+            plt.scatter(df1["x1"], df1["y"])
             return plt
     elif len(inputData) == 2:   # Если пользователь ввел диапозон
         # Записываем границы диапозона в переменные
@@ -60,11 +60,11 @@ def paintGraph(inputData, points):
         # Пробегаемся по каждому набору координат отдельного графика
         for point in range(minValue, maxValue):
             # Создаем таблицу координат
-            df1 = pd.DataFrame({"x": points[point][0], "y": points[point][1]})
+            df1 = pd.DataFrame({"x1": points[point][0], "y": points[point][1]})
             # Выводим в консоль для наглядности
             print(df1)
             # Строим график для текущего набора координат
-            plt.scatter(df1["x"], df1["y"])
+            plt.scatter(df1["x1"], df1["y"])
     return plt
 
 # Функция запроса пользовательского ввода

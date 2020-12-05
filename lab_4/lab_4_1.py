@@ -63,8 +63,6 @@ x3 = []
 M = find_max(g)
 i = 0
 while len(x3) < 1000 and i < len(r) - 1:
-    print(len(x3))
-    print(i)
     X = a + (b - a) * r[i]
     if M * r[i + 1] < q(g, X):
         x3.append(X)

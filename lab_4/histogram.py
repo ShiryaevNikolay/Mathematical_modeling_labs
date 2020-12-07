@@ -1,4 +1,5 @@
 def create_histogram(x):
+    x.sort()
     N = len(x)
     K = int(input(f"Введите количесво интервалов 10<k<21: "))
 
@@ -17,4 +18,8 @@ def create_histogram(x):
             if dmin <= x[j] <= dmax:
                 k[i] += 1
         g.append(k[i] / N)
+    SUM = 0
+    for i in g:
+        SUM += i
+    print("SUM = ", SUM)
     return g, K

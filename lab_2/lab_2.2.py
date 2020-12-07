@@ -3,7 +3,7 @@ import numpy as np
 # from lab_2.piecewice_linear_interpolation import piecewice_linear_interpolation
 # import lab_2.piecewice_linear_interpolation as interpolation
 
-points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
+points = fun.openFile(r"..\data_points.xlsx")
 
 inputData = fun.inputUser(points)
 graph = fun.paintGraph(inputData, points)

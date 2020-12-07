@@ -1,7 +1,9 @@
 import random
 import math
+import histogram
+import matplotlib.pyplot as plt
 
-
+# Пользовательский ввод данных
 def input_use(text):
     # Ввод интервала (a, b)
     while True:
@@ -12,15 +14,18 @@ def input_use(text):
             print("Некорректный ввод.")
     return value1, value2
 
-
+# Пункт 1: метод обратных функций
+# нахождение x[i] от случайной величины r[i]
 def find_xi(a, b, ri):
     return ri * (b - a) + a
 
-
+# Пункт 3: Метод Неймана
+# нахождение максимума расределения Рэлея
 def find_max(g):
     return (1 / g) * math.exp(-1 / 2)
 
-
+# Пункт 3: Метод Неймана
+# нахождение g(x)
 def q(g, X):
     return X * math.exp(-X ** 2 / 2 * g ** 2)
 
@@ -28,9 +33,10 @@ def q(g, X):
 # Массив для случайных величин
 r = []
 # Массивы для каждого пункта
-x1 = []
-x2 = []
-x3 = []
+x = [[], [], []]
+# x1 = []
+# x2 = []
+# x3 = []
 # Объем выборки
 N = int(input(f"Введите N (6<=N<=12): "))
 # Интервал (a,b)
@@ -51,18 +57,25 @@ for j in range(1000):
     for i in range(N):
         r.append(random.random())
         v += r[i]
-        if i > 0 and len(x3) < 1000:
+        if len(x[0]) < 1000:
+            # 1 пункт
+            x[0].append(find_xi(a, b, r[0]))
+        if i > 0 and len(x[2]) < 1000:
             # 3 пункт
             X = a + (b - a) * r[i - 1]
             if M * r[i] < q(g, X):
-                x3.append(X)
-    # 1 пункт
-    x1.append(find_xi(a, b, r[0]))
+                x[2].append(X)
     # 2 пункт
     xi = (v - m) / g
-    x2.append(xi)
+    x[1].append(xi)
     # Освобождаем ресурсы
     r.clear()
-print(len(x1))
-print(len(x2))
-print(len(x3))
+
+# Постоение гистограмм
+for xi in x:
+    if len(xi) > 0:
+        g, K = histogram.create_histogram(xi)
+        plt.hist(g, bins=K)
+    print(len(xi))
+plt.grid(True)
+plt.show()

@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Путь к файлу с данными
-dataFilePath = (r"C:\Users\deend\Desktop\Мат. моделирование\lab_1\data_points_3.xlsx")
+dataFilePath = (r"data_points.xlsx")
 
 # Открываем файл
 data = xlrd.open_workbook(dataFilePath, on_demand=True)
@@ -11,7 +11,7 @@ data = xlrd.open_workbook(dataFilePath, on_demand=True)
 # Получаем количество листов в таблице
 lists = len(data.sheet_names())
 
-# Функция для получения точек для одного из графиков
+# Функция для получения точек из листа для одного из графиков
 def getData(sheet):
     # Инициализируем массивы для хнанения координат
     x = []
@@ -69,7 +69,7 @@ def inputUser(points):
     # Информация для пользователя
     print(f"Найдено графиков: {n}\n"
           f"Введите диапозон или определенный график, который нужно отрисовывать\n"
-          f"Напрмер: 3 или 1-4. Для вывода всех графиков введите 0 или {n}")
+          f"Напрмер: 2 или 3-7. Для вывода всех графиков введите 0 или {n}")
     # Тут будут храниться введенные данные
     # Запрашиваем ввод, пока пользователь не введет корректные данные
     while True:

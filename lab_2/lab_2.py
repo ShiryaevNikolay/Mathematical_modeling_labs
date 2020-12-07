@@ -3,7 +3,7 @@ import numpy as np
 from findPolynomialLagrange import polynomialLagrange
 from scipy import interpolate
 
-points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
+points = fun.openFile(r"..\data_points.xlsx")
 
 inputData = fun.inputUser(points)
 graph = fun.paintGraph(inputData, points)

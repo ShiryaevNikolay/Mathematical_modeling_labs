@@ -1,9 +1,8 @@
 import functions as fun
 import numpy as np
-import scipy as sp
 import matplotlib.pyplot as plt
-from scipy.optimize import fsolve
 
+# Путь к файлу
 points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
 k = len(points[0][0])
 
@@ -24,6 +23,7 @@ def inputUser(points):
         except:
             print("Некорректный ввод")
 
+# Функция рисования графиков
 def paintGraph(x, y):
     plt.grid(True)
     plt.scatter(x, y)
@@ -35,6 +35,7 @@ n = inputUser(len(points[0][0]))
 x = points[0][0]
 y = points[0][1]
 
+# Рисуем точки
 graph = paintGraph(x, y)
 
 # Аргументы для постоения графиков

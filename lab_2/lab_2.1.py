@@ -1,8 +1,10 @@
 import functions as fun
 import findPolynomialLagrange as lagrange
 
-points = fun.openFile(r"C:\Users\deend\Desktop\Мат. моделирование\data_points.xlsx")
+# Путь к файлу
+points = fun.openFile(r"..\data_points.xlsx")
 
+# Ввод пользовательких данных и отрисовка точек
 inputData = fun.inputUser(points)
 graph = fun.paintGraph(inputData, points)
 

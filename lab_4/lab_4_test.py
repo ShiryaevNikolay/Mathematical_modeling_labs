@@ -1,5 +1,3 @@
-import random
-import math
 import histogram
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,12 +27,12 @@ def fun_replacement(v, m, g):
 # Пункт 3: Метод Неймана
 # нахождение максимума расределения Рэлея
 def find_max(g):
-    return (1 / g) * math.exp(-1 / 2)
+    return (g / (g**2)) * np.exp(-1 * (g**2) / 2 * (g**2))
 
 # Пункт 3: Метод Неймана
 # нахождение g(x)
 def q(g, X):
-    return X * math.exp(-X ** 2 / 2 * g ** 2)
+    return (X / (g**2)) * np.exp(-1 * (X ** 2) / 2 * (g ** 2))
 
 
 # Массив для случайных величин
@@ -51,38 +49,34 @@ while a >= b:
     a, b = input_use(f"Введите интервал (a, b), при чем a<b. Пример: 6 12\n")
     if a >= b:
         print("Некорректный ввод.")
-m, g = input_use(f"Введите m и б. Пример: 6 12\n")
+# m, g = input_use(f"Введите m и б. Пример: 6 12\n")
+m = float(input("Введите m: "))
+g = float(input("Введите б: "))
 
 # Находим максимум распределения Рэлея
-# M = find_max(g)
-
-# for j in range(1000):
-#     for i in range(N):
-#         # пункт 1: метод обратных функций
-#         # находим xi от сулчайной величины ri
-#         r.append(random.random())
-#         if len(x[0]) < 1000:
-#             x[0].append(find_xi(a, b, r[i]))
+M = find_max(g)
 
 # Вводим число интервалов группировки
 K = int(input(f"Введите количесво интервалов 10<k<21: "))
-# нужно для одинакоых примеров
-# for j in range(N):
-#     # генерируем 1000 случайных чисел
-#     r = np.random.rand(1000)
-#     for i in range(len(r)):
-#         if j == 0:
-#             # пункт 1: метод обратных функций
-#             # находим xi от сулчайной величины ri
-#             x[0].append(find_xi(a, b, r[i]))
+# находим выборки для каждого пункта
 for j in range(1000):
     v = 0
     for i in range(N):
         ri = np.random.random()
+        r.append(ri)
         v += ri
         if len(x[0]) < 1000:
+            # пункт 1: непрерывные величины
             x[0].append(find_xi(a, b, ri))
+        if len(x[2]) < 1000:
+            # пункт 3: метод Неймана
+            X = g * (np.sqrt(-2*np.log(r[i - 1])))
+            if r[i] < q(g, X):
+                x[2].append(X)
+    # пункт 2: ЦПТ
     x[1].append(fun_replacement(v, m, g))
+
+print(x[2])
 
 # сортируем выборку x
 for i in range(len(x)):
@@ -90,8 +84,8 @@ for i in range(len(x)):
 index = 0
 histogram.histogram(x[0], a, b, K, index)
 histogram.histogram(x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, index)
-# histogram.histogram(x[1], (1 - 0.02) * min(x[1]), (1 + 0.02) * max(x[1]), K)
-# plt.show()
+if len(x[2]) > 0:
+    histogram.histogram(x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index)
 
 # for j in range(1000):
 #     v = 0
@@ -111,26 +105,3 @@ histogram.histogram(x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, i
 #     x[1].append(xi)
 #     # Освобождаем ресурсы
 #     r.clear()
-
-# # Номер графа
-# index = 0
-# # Постоение гистограмм
-# for i in range(len(x)):
-#     # Если в массиве есть величины
-#     if len(x[i]) > 0:
-#         index += 1
-#         # Рисуем гистограмму
-#         g, K = histogram.create_histogram(x[i], index)
-#         index += 1
-#         # plt.subplot (2, 3, index)
-#         # plt.hist(g, bins=K)
-#         # plt.show()
-#         # Рисуем ступенчатую диаграмму
-#         polygon.new_tree(g, K, index)
-#         # plt.show()
-#         # print(len(g), len(F))
-#         # index += 1
-#         # plt.subplot(2, 3, index)
-#         # plt.step(F, K)
-#     print(len(x[i]))
-# plt.show()

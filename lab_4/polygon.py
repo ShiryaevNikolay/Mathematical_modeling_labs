@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def tree(a, deltaX, N, x, K, index):
     k = []
@@ -14,7 +15,7 @@ def tree(a, deltaX, N, x, K, index):
         F.append(k[q] / N)
     index += 1
     plt.subplot(1, 2, index)
-    plt.step(fx, F)
+    sns.lineplot(fx, F, drawstyle='steps-pre')
     plt.show()
 
 def new_tree(g, K, index):

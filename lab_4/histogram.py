@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
+import seaborn as sns
 import polygon
 
 def histogram(x, a, b, K, index):
@@ -28,13 +28,8 @@ def histogram(x, a, b, K, index):
         # Определяется частота бi
         g.append(k[i] / N)
     # Строим гистограмму
+
     index += 1
     plt.subplot(1, 2, index)
-    plt.hist(x, bins=K)
-    # строим линию распределения
-    fx = np.linspace(np.min(kx), np.max(kx))
-    fp = np.polyfit(kx, k, 7)
-    fy = np.poly1d(fp)
-    plt.plot(fx, fy(fx), linewidth=3)
-    # polygon.new_tree(g, K, index)
+    sns.distplot(x, bins=K)
     polygon.tree(a, deltaX, N, x, K, index)

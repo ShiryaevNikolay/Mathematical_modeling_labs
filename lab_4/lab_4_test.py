@@ -1,5 +1,6 @@
 import histogram
 import numpy as np
+import find_values as val
 
 # Пользовательский ввод данных
 def input_use(text):
@@ -77,8 +78,8 @@ for j in range(1000):
     # Освобождаем ресурсы
     r.clear()
 
-print(len(x[2]))
-print(x[2])
+# print(len(x[2]))
+# print(x[2])
 
 # сортируем выборку x
 for i in range(len(x)):
@@ -89,3 +90,6 @@ histogram.histogram(x[0], a, b, K, index)
 histogram.histogram(x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, index)
 if len(x[2]) > 0:
     histogram.histogram(x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index)
+
+for i in range(len(x)):
+    val.expected(x[i])

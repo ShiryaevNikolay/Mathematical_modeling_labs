@@ -28,4 +28,4 @@ def histogram(x, a, b, K, index):
     plt.subplot(1, 2, index)
     sns.distplot(x, bins=K)
     # вызываем функцию построения ступенчатой диаграммы
-    polygon.tree(a, deltaX, N, x, K, index)
+    polygon.step_fun(a, deltaX, N, x, K, index)

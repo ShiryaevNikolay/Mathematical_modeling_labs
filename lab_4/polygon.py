@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def tree(a, deltaX, N, x, K, index):
+def step_fun(a, deltaX, N, x, K, index):
     # массив для хранения количества xi, попавших в интервал
     sum = []
     # массив выборочных вероятностей

@@ -81,7 +81,8 @@ for i in range(len(r)):
 # сортируем выборку x
 for i in range(len(x)):
     x[i].sort()
-histogram.histogram(x[0], a, b, K)
+index = 0
+histogram.histogram(x[0], a, b, K, index)
 # histogram.histogram(x[1], (1 - 0.02) * min(x[1]), (1 + 0.02) * max(x[1]), K)
 plt.show()
 

@@ -1,18 +1,20 @@
 import matplotlib.pyplot as plt
 
-def tree(a, dx, N, x):
+def tree(a, deltaX, N, x, K, index):
     k = []
-    F = []
-    dq = []
-    for q in range(N):
-        dq.append(q)
+    F = [0]
+    fx = [a]
+    for q in range(K):
         k.append(0)
-        dmax = a + q * dx
-        for i in range(N):
-            if a <= x[i] <= dmax:
+        b = a + (q + 1) * deltaX
+        fx.append(b)
+        for i in range(len(x)):
+            if a <= x[i] < b:
                 k[q] += 1
         F.append(k[q] / N)
-    return plt.step(F, dq)
+    index += 1
+    plt.subplot(1, 2, index)
+    plt.step(fx, F)
 
 def new_tree(g, K, index):
     g.sort()
@@ -22,5 +24,6 @@ def new_tree(g, K, index):
         sum += gi
         F.append(sum)
     print(F)
-    plt.subplot(2, 3, index)
-    plt.step(F, g)
+    index += 1
+    plt.subplot(1, 2, index)
+    plt.step(g, F)

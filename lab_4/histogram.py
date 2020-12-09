@@ -1,13 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.stats as st
-from scipy import interpolate
 import polygon
 
-def histogram(x, a, b, K):
+def histogram(x, a, b, K, index):
     N = len(x)
     # Определяется длина и границы группировки
-    # d = 1.02 * (max(x) - min(x))
     d = b - a
     deltaX = d / K
     k = []
@@ -31,9 +28,14 @@ def histogram(x, a, b, K):
         # Определяется частота бi
         g.append(k[i] / N)
     # Строим гистограмму
+    index += 1
+    plt.subplot(1, 2, index)
     plt.hist(x, bins=K)
+    plt.title("Непрерывные величины")
     # строим линию распределения
     fx = np.linspace(np.min(kx), np.max(kx))
     fp = np.polyfit(kx, k, 7)
     fy = np.poly1d(fp)
     plt.plot(fx, fy(fx), linewidth=3)
+    # polygon.new_tree(g, K, index)
+    polygon.tree(a, deltaX, N, x, K, index)

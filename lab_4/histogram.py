@@ -31,7 +31,6 @@ def histogram(x, a, b, K, index):
     index += 1
     plt.subplot(1, 2, index)
     plt.hist(x, bins=K)
-    plt.title("Непрерывные величины")
     # строим линию распределения
     fx = np.linspace(np.min(kx), np.max(kx))
     fp = np.polyfit(kx, k, 7)

@@ -51,7 +51,7 @@ while a >= b:
     a, b = input_use(f"Введите интервал (a, b), при чем a<b. Пример: 6 12\n")
     if a >= b:
         print("Некорректный ввод.")
-# m, g = input_use(f"Введите m и б. Пример: 6 12\n")
+m, g = input_use(f"Введите m и б. Пример: 6 12\n")
 
 # Находим максимум распределения Рэлея
 # M = find_max(g)
@@ -63,28 +63,35 @@ while a >= b:
 #         r.append(random.random())
 #         if len(x[0]) < 1000:
 #             x[0].append(find_xi(a, b, r[i]))
-#
-#
-# for i in range(len(x)):
-#     x[i].sort()
 
 # Вводим число интервалов группировки
 K = int(input(f"Введите количесво интервалов 10<k<21: "))
 # нужно для одинакоых примеров
-np.random.seed(10)
-# генерируем 1000 случайных чисел
 # for j in range(N):
-r = np.random.rand(1000)
-for i in range(len(r)):
-    x[0].append(find_xi(a, b, r[i]))
+#     # генерируем 1000 случайных чисел
+#     r = np.random.rand(1000)
+#     for i in range(len(r)):
+#         if j == 0:
+#             # пункт 1: метод обратных функций
+#             # находим xi от сулчайной величины ri
+#             x[0].append(find_xi(a, b, r[i]))
+for j in range(1000):
+    v = 0
+    for i in range(N):
+        ri = np.random.random()
+        v += ri
+        if len(x[0]) < 1000:
+            x[0].append(find_xi(a, b, ri))
+    x[1].append(fun_replacement(v, m, g))
 
 # сортируем выборку x
 for i in range(len(x)):
     x[i].sort()
 index = 0
 histogram.histogram(x[0], a, b, K, index)
+histogram.histogram(x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, index)
 # histogram.histogram(x[1], (1 - 0.02) * min(x[1]), (1 + 0.02) * max(x[1]), K)
-plt.show()
+# plt.show()
 
 # for j in range(1000):
 #     v = 0

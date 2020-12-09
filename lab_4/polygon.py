@@ -15,6 +15,7 @@ def tree(a, deltaX, N, x, K, index):
     index += 1
     plt.subplot(1, 2, index)
     plt.step(fx, F)
+    plt.show()
 
 def new_tree(g, K, index):
     g.sort()

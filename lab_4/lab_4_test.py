@@ -1,7 +1,5 @@
 import histogram
 import numpy as np
-import matplotlib.pyplot as plt
-import polygon
 
 # Пользовательский ввод данных
 def input_use(text):
@@ -32,7 +30,7 @@ def find_max(g):
 # Пункт 3: Метод Неймана
 # нахождение g(x)
 def q(g, X):
-    return (X / (g**2)) * np.exp(-1 * (X ** 2) / 2 * (g ** 2))
+    return (X) * np.exp(-1 * (X ** 2) / 2 * (g ** 2))
 
 
 # Массив для случайных величин
@@ -70,38 +68,24 @@ for j in range(1000):
             x[0].append(find_xi(a, b, ri))
         if len(x[2]) < 1000:
             # пункт 3: метод Неймана
-            X = g * (np.sqrt(-2*np.log(r[i - 1])))
-            if r[i] < q(g, X):
+            # X = g * (np.sqrt(-2*np.log(r[i - 1])))
+            X = a + (b - a) * r[i - 1]
+            if M * r[i] < q(g, X):
                 x[2].append(X)
     # пункт 2: ЦПТ
     x[1].append(fun_replacement(v, m, g))
+    # Освобождаем ресурсы
+    r.clear()
 
+print(len(x[2]))
 print(x[2])
 
 # сортируем выборку x
 for i in range(len(x)):
     x[i].sort()
 index = 0
+# строим графики для каждой выборки
 histogram.histogram(x[0], a, b, K, index)
 histogram.histogram(x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, index)
 if len(x[2]) > 0:
     histogram.histogram(x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index)
-
-# for j in range(1000):
-#     v = 0
-#     for i in range(N):
-#         r.append(random.random())
-#         v += r[i]
-#         if len(x[0]) < 1000 and i == 0:
-#             # 1 пункт: find_xi - метод обратных функций
-#             x[0].append(find_xi(a, b, r[0]))
-#         if i > 0 and len(x[2]) < 1000:
-#             # 3 пункт: метод Неймана
-#             X = a + (b - a) * r[i - 1]
-#             if M * r[i] < q(g, X):
-#                 x[2].append(X)
-#     # 2 пункт: ЦПТ
-#     xi = (v - m) / g
-#     x[1].append(xi)
-#     # Освобождаем ресурсы
-#     r.clear()

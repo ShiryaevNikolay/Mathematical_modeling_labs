@@ -2,30 +2,25 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def tree(a, deltaX, N, x, K, index):
-    k = []
+    # массив для хранения количества xi, попавших в интервал
+    sum = []
+    # массив выборочных вероятностей
     F = [0]
+    # массив для хранения координат по оси Х
     fx = [a]
     for q in range(K):
-        k.append(0)
+        sum.append(0)
+        # правая граница интервала
         b = a + (q + 1) * deltaX
         fx.append(b)
         for i in range(len(x)):
+            # если xi попадает в интервал, то добавляем в массив сумм
             if a <= x[i] < b:
-                k[q] += 1
-        F.append(k[q] / N)
+                sum[q] += 1
+        F.append(sum[q] / N)
+    # индекс для постоения двух графиков на одном окне
     index += 1
+    # строим ступенчатую диаграмму и показываем графики
     plt.subplot(1, 2, index)
     sns.lineplot(fx, F, drawstyle='steps-pre')
     plt.show()
-
-def new_tree(g, K, index):
-    g.sort()
-    F = []
-    sum = 0
-    for gi in g:
-        sum += gi
-        F.append(sum)
-    print(F)
-    index += 1
-    plt.subplot(1, 2, index)
-    plt.step(g, F)

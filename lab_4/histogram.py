@@ -1,25 +1,29 @@
-def create_histogram(x):
-    x.sort()
-    N = len(x)
-    K = int(input(f"Введите количесво интервалов 10<k<21: "))
+import matplotlib.pyplot as plt
+import polygon
 
-    a = (1 - 0.02) * x[0]
-    b = (1 + 0.02) * x[N - 1]
-    d = 1.02 * (x[N - 1] - x[0])
-    dx = d / K
-
-    k = []
-    g = []
-    for i in range(K):
-        k.append(0)
-        dmin = a + (i - 1) * dx
-        dmax = a + i * dx
-        for j in range(N):
-            if dmin <= x[j] <= dmax:
-                k[i] += 1
-        g.append(k[i] / N)
-    SUM = 0
-    for i in g:
-        SUM += i
-    print("SUM = ", SUM)
-    return g, K
+def histogram(x, a, b, K):
+    # N = len(x)
+    # # Определяется длина и границы группировки
+    # # d = 1.02 * (max(x) - min(x))
+    # d = b - a
+    # deltaX = d / K
+    # k = []
+    # g = []
+    # for i in range(K):
+    #     k.append(0)
+    #     deltaiMin = a + i*deltaX
+    #     deltaiMax = a + (i + 1)*deltaX
+    #     print(deltaiMin, deltaiMax)
+    #     for j in range(N):
+    #         if deltaiMin <= x[j] < deltaiMax:
+    #             # Колличество ki элементов выборки, попавших в
+    #             # интервал группировки deltai
+    #             k[i] += 1
+    #             # print(x[j])
+    #     # Определяется частота бi
+    #     print(k[i])
+    #     g.append(k[i] / N)
+    # plt.hist(g, bins=K)
+    plt.hist(x, bins=K)
+    print("X = ", x)
+    # print("g = ", g)

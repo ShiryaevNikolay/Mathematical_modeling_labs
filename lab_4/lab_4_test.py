@@ -70,15 +70,17 @@ while a >= b:
 
 # Вводим число интервалов группировки
 K = int(input(f"Введите количесво интервалов 10<k<21: "))
-# histogram.histogram(x[0], a, b, K)
+# нужно для одинакоых примеров
 np.random.seed(10)
+# генерируем 1000 случайных чисел
+# for j in range(N):
 r = np.random.rand(1000)
-for i in range(1000):
+for i in range(len(r)):
     x[0].append(find_xi(a, b, r[i]))
-r.sort()
-x[0].sort()
-# print(r)
-print(x[0])
+
+# сортируем выборку x
+for i in range(len(x)):
+    x[i].sort()
 histogram.histogram(x[0], a, b, K)
 # histogram.histogram(x[1], (1 - 0.02) * min(x[1]), (1 + 0.02) * max(x[1]), K)
 plt.show()

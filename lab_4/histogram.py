@@ -30,8 +30,6 @@ def histogram(point, x, a, b, K, index, m, sigma):
         g.append(sum[i] / N)
     # Строим гистограмму
     index += 1  # индекс для размещения двух графиков в олном окне
-    # plt.subplot(1, 2, index)
-    # sns.distplot(x, bins=K, kde=False)
     plt.hist(x, bins=K)
     if point == 0:
         plt.title("Равномерное распределение")
@@ -40,7 +38,7 @@ def histogram(point, x, a, b, K, index, m, sigma):
     elif point == 1:
         plt.title("Нормальное распределение")
         # строим плотность гауссовского распределения
-        wx_gauss(wx, m, sigma)
+        wx_gauss(wx, m, sigma, np.max(sum))
     # elif point == 2:
     #     plt.title("Распределение Рэлея")
     #     wx_rayleigh(wx, sigma)
@@ -59,18 +57,17 @@ def wx_even(a, b, sum, wx):
 
 
 # нахождение плотности гауссовского распределения
-def wx_gauss(wx, m, sigma):
+def wx_gauss(wx, m, sigma, Ymax):
     # находим границы графика
     a = np.min(wx)
     b = np.max(wx)
     # добавляем точки, чтотбы график был гладкий
     wx = np.linspace(a, b, 500)
-    # находим координаты У для гауссовского распрделения
-    wy = st.norm.pdf(wx, np.mean(wx), np.std(wx))
-    # wy = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp((wx - m)**2 / (2 * sigma ** 2))
-    # делаем пропорции координат
+    wy = []
+    for i in range(len(wx)):
+        wy.append((1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-1 * (wx[i] - m)**2 / (2 * sigma ** 2)))
     for i in range(len(wy)):
-        wy[i] = wy[i] * 1000
+        wy[i] = wy[i] * 300
     # находим Ymin чтобы опустить график на ось Х
     ymin = np.min(wy)
     # опускаем каждое значение У на величину Ymin

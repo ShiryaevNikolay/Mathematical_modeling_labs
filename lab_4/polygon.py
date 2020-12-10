@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import scipy.stats as st
+import numpy as np
+
 
 def step_fun(point, a, b, deltaX, N, x, K, index):
     # массив для хранения количества xi, попавших в интервал
@@ -25,13 +28,21 @@ def step_fun(point, a, b, deltaX, N, x, K, index):
     # sns.lineplot(fx, F, drawstyle='steps-pre')
     plt.step(fx, F)
     if point == 0:
-        even(a, b, sum, fx)
+        fx_even(a, b, fx)
+    # elif point == 1:
+    #     fx_gauss(fx)
     plt.show()
 
 
 # функция непрерывного распределения
-def even(a, b, sum, fx):
+def fx_even(a, b, fx):
     fy = []
     for i in range(len(fx)):
         fy.append(((fx[i] - a) / (b - a)))
+    plt.plot(fx, fy, linewidth=3, color='r')
+
+
+# функция аусовского распределения
+def fx_gauss(fx):
+    fy = st.norm.pdf(fx, np.mean(fx), np.std(fx))
     plt.plot(fx, fy, linewidth=3, color='r')

@@ -5,7 +5,7 @@ def expected(x):
     for i in range(N):
         m += x[i]
     m = m / N
-    print(f"Математическое ожидание m: ", m)
+    print(f"Выборочное m: ", m)
     return variance(x, m)
 
 
@@ -16,5 +16,5 @@ def variance(x, m):
     for i in range(N):
         s2 += (x[i] - m)**2
     s2 = s2 / N
-    print(f"Дисперсия s2: ", s2)
+    print(f"Выборочная дисперсия s2: ", s2)
     return m, s2

@@ -23,8 +23,11 @@ def find_xi(a, b, ri):
 
 # Пункт 2: гауссовский закон с параметрами N(m,б^2) на основе ЦПТ
 # формула замены
-def fun_gauss(v, m, sigma):
-    return (v - m) / sigma
+def fun_gauss(v, m, sigma, N):
+    zi = (v - (N/2)) / np.sqrt(N/12)
+    return sigma * zi + m
+# def fun_gauss(v, m, sigma):
+#     return sigma * v + m
 # def fun_gauss(v, n):
 #     return np.sqrt(12/n) * v
 
@@ -81,8 +84,7 @@ for j in range(1000):
             if M * r[i] < q(sigma, X):
                 x[2].append(X)
     # пункт 2: ЦПТ
-    # x[1].append(fun_gauss(v, N))
-    x[1].append(fun_gauss(v, m, sigma))
+    x[1].append(fun_gauss(v, m, sigma, N))
     # Освобождаем ресурсы
     r.clear()
 
@@ -91,15 +93,15 @@ for i in range(len(x)):
     x[i].sort()
 index = 0
 # строим графики для каждой выборки
-histogram.histogram(0, x[0], a, b, K, index, m, sigma)
+# histogram.histogram(0, x[0], a, b, K, index, m, sigma)
 histogram.histogram(1, x[1], (1 - 0.02) * np.min(x[1]), (1 + 0.02) * np.max(x[1]), K, index, m, sigma)
 if len(x[2]) > 0:
     histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index, m, sigma)
 
-print("---------------------------------------------")
-print("Непрерывное распределение")
-print("m: ", (b + a) / 2)
-print("s2: ", (b - a)**2 / 12)
+# print("---------------------------------------------")
+# print("Равномерное распределение")
+# print("m: ", (b + a) / 2)
+# print("s2: ", (b - a)**2 / 12)
 val.expected(x[0])
 print("---------------------------------------------")
 print("Нормальное распределение (Гаусса)")

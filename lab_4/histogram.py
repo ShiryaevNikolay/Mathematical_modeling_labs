@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
 import scipy.stats as st
 import polygon
 import numpy as np
@@ -40,9 +41,9 @@ def histogram(point, x, a, b, K, index, m, sigma):
         plt.title("Нормальное распределение")
         # строим плотность гауссовского распределения
         wx_gauss(wx, m, sigma)
-    elif point == 2:
-        plt.title("Распределение Рэлея")
-        wx_rayleigh(wx, sigma)
+    # elif point == 2:
+    #     plt.title("Распределение Рэлея")
+    #     wx_rayleigh(wx, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
     polygon.step_fun(point, a, b, deltaX, N, x, K, index, m, sigma)
@@ -63,7 +64,7 @@ def wx_gauss(wx, m, sigma):
     a = np.min(wx)
     b = np.max(wx)
     # добавляем точки, чтотбы график был гладкий
-    wx = np.linspace(a, b, 1000)
+    wx = np.linspace(a, b, 500)
     # находим координаты У для гауссовского распрделения
     wy = st.norm.pdf(wx, np.mean(wx), np.std(wx))
     # wy = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp((wx - m)**2 / (2 * sigma ** 2))

@@ -33,7 +33,7 @@ def step_fun(point, a, b, deltaX, N, x, K, index, m, sigma):
         fx_even(a, b, fx)
     elif point == 1:
         plt.title("Нормальное распределение")
-        # fx_gauss(fx, m, sigma)
+        fx_gauss(fx, m, sigma)
     # elif point == 2:
     #     plt.title("Распределение Рэлея")
     #     fx_rayleigh(fx, sigma)
@@ -52,8 +52,7 @@ def fx_even(a, b, fx):
 def fx_gauss(fx, m, sigma):
     fy = []
     for i in range(len(fx)):
-        # fy.append((1 / 2) * (1 + special.erf((fx[i] - 4) / (np.sqrt(2 * sigma**2)))))
-        fy.append((1 / 2) + (1 / np.sqrt(2*np.pi)) * integrate.quad(lambda x: np.exp(-1 * x**2 / 2), 0, (fx[i] - m) / sigma))
+        fy.append((1 / 2) * (1 + special.erf((fx[i] - m) / (np.sqrt(2 * sigma**2)))))
     print(fy)
     plt.plot(fx, fy, linewidth=3, color='r')
 

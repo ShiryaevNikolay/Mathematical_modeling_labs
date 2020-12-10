@@ -26,10 +26,6 @@ def find_xi(a, b, ri):
 def fun_gauss(v, m, sigma, N):
     zi = (v - (N/2)) / np.sqrt(N/12)
     return sigma * zi + m
-# def fun_gauss(v, m, sigma):
-#     return sigma * v + m
-# def fun_gauss(v, n):
-#     return np.sqrt(12/n) * v
 
 
 # Пункт 3: Метод Неймана

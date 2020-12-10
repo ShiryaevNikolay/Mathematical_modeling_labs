@@ -12,9 +12,9 @@ def expected(x):
 # Функция нахождения дисперсии
 def variance(x, m):
     N = len(x)
-    d = 0
+    s2 = 0
     for i in range(N):
-        d += (x[i] - m)**2
-    d = d / N
-    print(f"исперсия d: ", d)
-    return m, d
+        s2 += (x[i] - m)**2
+    s2 = s2 / N
+    print(f"Дисперсия s2: ", s2)
+    return m, s2

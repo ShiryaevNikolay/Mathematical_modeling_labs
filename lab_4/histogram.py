@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import scipy.stats as st
 import polygon
-import find_values as val
 import numpy as np
 
 def histogram(point, x, a, b, K, index, m, sigma):
@@ -34,16 +33,19 @@ def histogram(point, x, a, b, K, index, m, sigma):
     # sns.distplot(x, bins=K, kde=False)
     plt.hist(x, bins=K)
     if point == 0:
+        plt.title("Равномерное распределение")
         # строим плотность равномерного распределения
         wx_even(a, b, sum, wx)
     elif point == 1:
+        plt.title("Нормальное распределение")
         # строим плотность гауссовского распределения
-        wx_gauss(wx)
+        wx_gauss(wx, m, sigma)
     elif point == 2:
+        plt.title("Распределение Рэлея")
         wx_rayleigh(wx, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
-    polygon.step_fun(point, a, b, deltaX, N, x, K, index, sigma)
+    polygon.step_fun(point, a, b, deltaX, N, x, K, index, m, sigma)
 
 
 # нахождение плотности непрерывного распределения
@@ -56,7 +58,7 @@ def wx_even(a, b, sum, wx):
 
 
 # нахождение плотности гауссовского распределения
-def wx_gauss(wx):
+def wx_gauss(wx, m, sigma):
     # находим границы графика
     a = np.min(wx)
     b = np.max(wx)
@@ -64,6 +66,7 @@ def wx_gauss(wx):
     wx = np.linspace(a, b, 1000)
     # находим координаты У для гауссовского распрделения
     wy = st.norm.pdf(wx, np.mean(wx), np.std(wx))
+    # wy = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp((wx - m)**2 / (2 * sigma ** 2))
     # делаем пропорции координат
     for i in range(len(wy)):
         wy[i] = wy[i] * 1000
@@ -76,7 +79,7 @@ def wx_gauss(wx):
 
 
 # нахождение плотности элеевского распределения
-def wx_rayleigh(wx, g):
+def wx_rayleigh(wx, sigma):
     # находим границы графика
     a = np.min(wx)
     b = np.max(wx)
@@ -84,7 +87,7 @@ def wx_rayleigh(wx, g):
     wx = np.linspace(a, b, 1000)
     wy = []
     for i in range(len(wx)):
-        wy.append((wx[i] / g**2) * np.exp(-(wx[i]**2) / (2 * g**2)))
+        wy.append((wx[i] / sigma ** 2) * np.exp(-(wx[i] ** 2) / (2 * sigma ** 2)))
     # делаем пропорции координат
     for i in range(len(wy)):
         wy[i] = wy[i] * 100

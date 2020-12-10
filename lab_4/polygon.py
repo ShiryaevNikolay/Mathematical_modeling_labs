@@ -1,17 +1,19 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.stats as st
+import scipy.special as special
 import numpy as np
+from scipy import integrate
 from scipy import integrate
 
 
-def step_fun(point, a, b, deltaX, N, x, K, index, sigma):
+def step_fun(point, a, b, deltaX, N, x, K, index, m, sigma):
     # массив для хранения количества xi, попавших в интервал
     sum = []
     # массив выборочных вероятностей
-    F = []
+    F = [0]
     # массив для хранения координат по оси Х
-    fx = []
+    fx = [a]
     for q in range(K):
         sum.append(0)
         # правая граница интервала
@@ -25,14 +27,15 @@ def step_fun(point, a, b, deltaX, N, x, K, index, sigma):
     # индекс для постоения двух графиков на одном окне
     index += 1
     # строим ступенчатую диаграмму и показываем графики
-    # plt.subplot(1, 2, index)
-    # sns.lineplot(fx, F, drawstyle='steps-pre')
     plt.step(fx, F)
     if point == 0:
+        plt.title("Равномерное распределение")
         fx_even(a, b, fx)
     # elif point == 1:
-    #     fx_gauss(fx)
+    #     plt.title("Нормальное распределение")
+    #     fx_gauss(fx, m, sigma)
     elif point == 2:
+        plt.title("Распределение Рэлея")
         fx_rayleigh(fx, sigma)
     plt.show()
 
@@ -46,14 +49,12 @@ def fx_even(a, b, fx):
 
 
 # функция гаусовского распределения
-def fx_gauss(fx):
-    # fy = 0.5 + (1/np.sqrt(2*np.pi))*
-    a = np.min(fx)
-    b = np.max(fx)
+def fx_gauss(fx, m, sigma):
     fy = []
     for i in range(len(fx)):
-        fy.append(np.exp(-(fx[i]**2) / 2))
-        fy[i] = 0.5 + (1/(np.sqrt(2*np.pi)))*integrate.quad(fy[i], 0, fx[i])
+        # fy.append((1 / 2) * (1 + special.erf((fx[i] - 4) / (np.sqrt(2 * sigma**2)))))
+        fy.append((1 / (np.sqrt(2*np.pi*sigma**2))) * integrate.quad(func, -np.inf, fx[i], args=sigma))
+    print(fy)
     plt.plot(fx, fy, linewidth=3, color='r')
 
 # функция рэлеевского распределения
@@ -62,3 +63,7 @@ def fx_rayleigh(fx, sigma):
     for i in range(len(fx)):
         fy.append(1 - np.exp(-(fx[i]**2) / (2 * sigma**2)))
     plt.plot(fx, fy, linewidth=3, color='r')
+
+
+def func(t, sigma):
+    return np.exp(-t**2 / (2 * sigma**2))

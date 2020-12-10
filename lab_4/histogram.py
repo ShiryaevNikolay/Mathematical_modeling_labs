@@ -43,7 +43,7 @@ def histogram(point, x, a, b, K, index, m, sigma):
         wx_rayleigh(wx, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
-    polygon.step_fun(point, a, b, deltaX, N, x, K, index)
+    polygon.step_fun(point, a, b, deltaX, N, x, K, index, sigma)
 
 
 # нахождение плотности непрерывного распределения

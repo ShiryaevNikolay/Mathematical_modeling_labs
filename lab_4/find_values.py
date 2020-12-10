@@ -6,7 +6,7 @@ def expected(x):
         m += x[i]
     m = m / N
     print(f"Математическое ожидание m: ", m)
-    variance(x, m)
+    return variance(x, m)
 
 
 # Функция нахождения дисперсии
@@ -17,3 +17,4 @@ def variance(x, m):
         d += (x[i] - m)**2
     d = d / N
     print(f"исперсия d: ", d)
+    return m, d

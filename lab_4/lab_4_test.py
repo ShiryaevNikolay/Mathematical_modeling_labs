@@ -23,9 +23,9 @@ def find_xi(a, b, ri):
 
 # Пункт 2: гауссовский закон с параметрами N(m,б^2) на основе ЦПТ
 # формула замены
-# def fun_replacement(v, m, g):
+# def fun_gauss(v, m, g):
 #     return (v - m) / g
-def fun_replacement(v, n):
+def fun_gauss(v, n):
     return np.sqrt(12/n) * v
 
 
@@ -76,13 +76,13 @@ for j in range(1000):
             x[0].append(find_xi(a, b, ri))
         if len(x[2]) < 1000:
             # пункт 3: метод Неймана
-            # X = g * (np.sqrt(-2*np.log(r[i - 1])))
-            X = a + (b - a) * r[i - 1]
+            X = g * (np.sqrt(-2*np.log(r[i - 1])))
+            # X = a + (b - a) * r[i - 1]
             if M * r[i] < q(g, X):
                 x[2].append(X)
     # пункт 2: ЦПТ
-    # x[1].append(fun_replacement(v, N))
-    x[1].append(fun_replacement(v, N))
+    # x[1].append(fun_gauss(v, N))
+    x[1].append(fun_gauss(v, N))
     # Освобождаем ресурсы
     r.clear()
 
@@ -94,10 +94,10 @@ for i in range(len(x)):
     x[i].sort()
 index = 0
 # строим графики для каждой выборки
-histogram.histogram(0, x[0], a, b, K, index)
-histogram.histogram(1, x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, index)
-# if len(x[2]) > 0:
-#     histogram.histogram(x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index)
+histogram.histogram(0, x[0], a, b, K, index, m, g)
+histogram.histogram(1, x[1], (1 - 0.02)*np.min(x[1]), (1 + 0.02)*np.max(x[1]), K, index, m, g)
+if len(x[2]) > 0:
+    histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index, m, g)
 
 # for i in range(len(x)):
 #     val.expected(x[i])

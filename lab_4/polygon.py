@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.stats as st
 import numpy as np
+from scipy import integrate
 
 
 def step_fun(point, a, b, deltaX, N, x, K, index):
@@ -31,6 +32,7 @@ def step_fun(point, a, b, deltaX, N, x, K, index):
         fx_even(a, b, fx)
     # elif point == 1:
     #     fx_gauss(fx)
+    # elif point == 2:
     plt.show()
 
 
@@ -44,5 +46,11 @@ def fx_even(a, b, fx):
 
 # функция аусовского распределения
 def fx_gauss(fx):
-    fy = st.norm.pdf(fx, np.mean(fx), np.std(fx))
+    # fy = 0.5 + (1/np.sqrt(2*np.pi))*
+    a = np.min(fx)
+    b = np.max(fx)
+    fy = []
+    for i in range(len(fx)):
+        fy.append(np.exp(-(fx[i]**2) / 2))
+        fy[i] = 0.5 + (1/(np.sqrt(2*np.pi)))*integrate.quad(fy[i], 0, fx[i])
     plt.plot(fx, fy, linewidth=3, color='r')

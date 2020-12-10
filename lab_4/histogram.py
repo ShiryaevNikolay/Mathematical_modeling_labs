@@ -1,11 +1,10 @@
 import matplotlib.pyplot as plt
 import scipy.stats as st
-import seaborn as sns
 import polygon
 import find_values as val
 import numpy as np
 
-def histogram(point, x, a, b, K, index):
+def histogram(point, x, a, b, K, index, m, sigma):
     N = len(x)
     # Определяется длина и границы группировки
     d = b - a
@@ -40,6 +39,8 @@ def histogram(point, x, a, b, K, index):
     elif point == 1:
         # строим плотность гауссовского распределения
         wx_gauss(wx)
+    elif point == 2:
+        wx_rayleigh(wx, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
     polygon.step_fun(point, a, b, deltaX, N, x, K, index)
@@ -66,6 +67,27 @@ def wx_gauss(wx):
     # делаем пропорции координат
     for i in range(len(wy)):
         wy[i] = wy[i] * 1000
+    # находим Ymin чтобы опустить график на ось Х
+    ymin = np.min(wy)
+    # опускаем каждое значение У на величину Ymin
+    for i in range(len(wy)):
+        wy[i] = wy[i] - ymin
+    plt.plot(wx, wy, linewidth=3, color='r')
+
+
+# нахождение плотности элеевского распределения
+def wx_rayleigh(wx, g):
+    # находим границы графика
+    a = np.min(wx)
+    b = np.max(wx)
+    # добавляем точки, чтотбы график был гладкий
+    wx = np.linspace(a, b, 1000)
+    wy = []
+    for i in range(len(wx)):
+        wy.append((wx[i] / g**2) * np.exp(-(wx[i]**2) / (2 * g**2)))
+    # делаем пропорции координат
+    for i in range(len(wy)):
+        wy[i] = wy[i] * 100
     # находим Ymin чтобы опустить график на ось Х
     ymin = np.min(wy)
     # опускаем каждое значение У на величину Ymin

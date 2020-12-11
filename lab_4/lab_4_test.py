@@ -83,10 +83,10 @@ for i in range(len(x)):
     x[i].sort()
 index = 0
 # строим графики для каждой выборки
-histogram.histogram(0, x[0], a, b, K, m, sigma)
-histogram.histogram(1, x[1], (1 - 0.02) * np.min(x[1]), (1 + 0.02) * np.max(x[1]), K, m, sigma)
+histogram.histogram(0, x[0], a, b, m, sigma)
+histogram.histogram(1, x[1], (1 - 0.02) * np.min(x[1]), (1 + 0.02) * np.max(x[1]), m, sigma)
 if len(x[2]) > 0:
-    histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, m, sigma)
+    histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), m, sigma)
 
 print("---------------------------------------------")
 print("Равномерное распределение")

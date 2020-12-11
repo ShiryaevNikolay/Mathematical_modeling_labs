@@ -1,15 +1,13 @@
 import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
-import scipy.stats as st
 import polygon
 import numpy as np
 
 
-def histogram(point, x, a, b, K, m, sigma):
+def histogram(point, x, a, b, m, sigma):
     N = len(x)
     # Определяется длина и границы группировки
     d = b - a
-    k = 11 * np.log10(N)
+    k = 1 + np.log2(N)
     deltaX = d / k
     sum = []
     # частоты бi
@@ -36,14 +34,14 @@ def histogram(point, x, a, b, K, m, sigma):
     if point == 0:
         plt.title("Равномерное распределение")
         # строим плотность равномерного распределения
-        wx_even(a, b, sum, x)
+        wx_even(a, b, sum, wx)
     elif point == 1:
         plt.title("Нормальное распределение")
         # строим плотность гауссовского распределения
-        wx_gauss(x, m, sigma)
+        wx_gauss(wx, m, sigma)
     elif point == 2:
         plt.title("Распределение Рэлея")
-        wx_rayleigh(x, sigma)
+        wx_rayleigh(wx, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
     polygon.step_fun(point, a, b, deltaX, N, x, k, m, sigma)
@@ -55,7 +53,7 @@ def wx_even(a, b, sum, wx):
     wy = []
     for i in range(len(wx)):
         wy.append((1 / (b - a)))
-    plt.plot(wx, wy, linewidth=3, color='r')
+    plt.plot(wx, wy, color='r')
     # plt.ylim((None, np.max(wy)))
 
 
@@ -76,7 +74,7 @@ def wx_gauss(wx, m, sigma):
     # # опускаем каждое значение У на величину Ymin
     # for i in range(len(wy)):
     #     wy[i] = wy[i] - ymin
-    plt.plot(wx, wy, linewidth=3, color='r')
+    plt.plot(wx, wy, color='r')
     # plt.ylim((None, np.max(wy)))
 
 
@@ -98,5 +96,5 @@ def wx_rayleigh(wx, sigma):
     # # опускаем каждое значение У на величину Ymin
     # for i in range(len(wy)):
     #     wy[i] = wy[i] - ymin
-    plt.plot(wx, wy, linewidth=3, color='r')
+    plt.plot(wx, wy, color='r')
     # plt.ylim((None, np.max(wy)))

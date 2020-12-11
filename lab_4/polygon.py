@@ -1,10 +1,6 @@
 import matplotlib.pyplot as plt
-import seaborn as sns
-import scipy.stats as st
 import scipy.special as special
 import numpy as np
-from scipy import integrate
-from scipy import integrate
 
 
 def step_fun(point, a, b, deltaX, N, x, K, m, sigma):
@@ -43,7 +39,7 @@ def fx_even(a, b, fx):
     fy = []
     for i in range(len(fx)):
         fy.append(((fx[i] - a) / (b - a)))
-    plt.plot(fx, fy, linewidth=3, color='r')
+    plt.plot(fx, fy, color='r')
 
 
 # функция гаусовского распределения
@@ -51,7 +47,7 @@ def fx_gauss(fx, m, sigma):
     fy = []
     for i in range(len(fx)):
         fy.append((1 / 2) * (1 + special.erf((fx[i] - m) / (np.sqrt(2 * sigma**2)))))
-    plt.plot(fx, fy, linewidth=3, color='r')
+    plt.plot(fx, fy, color='r')
 
 
 # функция рэлеевского распределения
@@ -59,5 +55,5 @@ def fx_rayleigh(fx, sigma):
     fy = []
     for i in range(len(fx)):
         fy.append(1 - np.exp(-1 * (fx[i] ** 2) / (2 * sigma ** 2)))
-    plt.plot(fx, fy, linewidth=3, color='r')
+    plt.plot(fx, fy, color='r')
 

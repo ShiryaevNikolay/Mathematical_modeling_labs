@@ -29,15 +29,9 @@ def fun_gauss(v, m, sigma, N):
 
 
 # Пункт 3: Метод Неймана
-# нахождение максимума расределения Рэлея
-def find_max(sigma):
-    return (1 / sigma) * np.exp(-1 / 2)
-
-
-# Пункт 3: Метод Неймана
-# нахождение sigma(x)
-def q(g, X):
-    return (X) * np.exp(-1 * (X ** 2) / 2 * (g ** 2))
+# нахождение g(x)
+def g(sigma, X):
+    return (X / sigma ** 2) * np.exp(-(X ** 2) / (2 * sigma ** 2))
 
 
 # Массив для случайных величин
@@ -59,7 +53,7 @@ m = float(input("Введите m: "))
 sigma = float(input("Введите sigma: "))
 
 # Находим максимум распределения Рэлея
-M = find_max(sigma)
+M = g(sigma, sigma)
 
 # Вводим число интервалов группировки
 K = int(input(f"Введите количесво интервалов 10<k<21: "))
@@ -73,11 +67,11 @@ for j in range(1000):
         if len(x[0]) < 1000:
             # пункт 1: непрерывные величины
             x[0].append(find_xi(a, b, ri))
-        if len(x[2]) < 1000:
+        if i > 0 and len(x[2]) < 1000:
             # пункт 3: метод Неймана
-            X = sigma * (np.sqrt(-2 * np.log(r[i - 1])))
-            # X = a + (b - a) * r[i - 1]
-            if M * r[i] < q(sigma, X):
+            # X = sigma * (np.sqrt(-2 * np.log(r[i - 1])))
+            X = a + (b - a) * r[i - 1]
+            if M * r[i] < g(sigma, X):
                 x[2].append(X)
     # пункт 2: ЦПТ
     x[1].append(fun_gauss(v, m, sigma, N))
@@ -89,24 +83,25 @@ for i in range(len(x)):
     x[i].sort()
 index = 0
 # строим графики для каждой выборки
-# histogram.histogram(0, x[0], a, b, K, index, m, sigma)
-histogram.histogram(1, x[1], (1 - 0.02) * np.min(x[1]), (1 + 0.02) * np.max(x[1]), K, index, m, sigma)
-# if len(x[2]) > 0:
-#     histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, index, m, sigma)
+histogram.histogram(0, x[0], a, b, K, m, sigma)
+histogram.histogram(1, x[1], (1 - 0.02) * np.min(x[1]), (1 + 0.02) * np.max(x[1]), K, m, sigma)
+if len(x[2]) > 0:
+    histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), K, m, sigma)
 
-# print("---------------------------------------------")
-# print("Равномерное распределение")
-# print("m: ", (b + a) / 2)
-# print("s2: ", (b - a)**2 / 12)
-# val.expected(x[0])
+print("---------------------------------------------")
+print("Равномерное распределение")
+print("m: ", (b + a) / 2)
+print("s2: ", (b - a)**2 / 12)
+val.expected(x[0])
 print("---------------------------------------------")
 print("Нормальное распределение (Гаусса)")
 print("m: ", m)
 print("s2: ", sigma)
 val.variance(x[1], m)
 val.expected(x[1])
-# print("---------------------------------------------")
-# print("Распределение Рэлея")
-# print("m: ", np.sqrt((np.pi * sigma**2) / 2))
-# print("s2: ", sigma)
-# val.expected(x[2])
+if len(x[2]) > 0:
+    print("---------------------------------------------")
+    print("Распределение Рэлея")
+    print("m: ", np.sqrt((np.pi * sigma**2) / 2))
+    print("s2: ", sigma)
+    val.expected(x[2])

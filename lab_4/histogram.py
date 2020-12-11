@@ -4,7 +4,7 @@ import scipy.stats as st
 import polygon
 import numpy as np
 
-def histogram(point, x, a, b, K, index, m, sigma):
+def histogram(point, x, a, b, K, m, sigma):
     N = len(x)
     # Определяется длина и границы группировки
     d = b - a
@@ -25,11 +25,9 @@ def histogram(point, x, a, b, K, index, m, sigma):
                 # Колличество ki элементов выборки, попавших в
                 # интервал группировки deltai
                 sum[i] += 1
-                # print(x[j])
         # Определяется частота бi
         g.append(sum[i] / N)
     # Строим гистограмму
-    index += 1  # индекс для размещения двух графиков в олном окне
     plt.hist(x, bins=K)
     if point == 0:
         plt.title("Равномерное распределение")
@@ -38,13 +36,13 @@ def histogram(point, x, a, b, K, index, m, sigma):
     elif point == 1:
         plt.title("Нормальное распределение")
         # строим плотность гауссовского распределения
-        wx_gauss(wx, m, sigma, np.max(sum))
-    # elif point == 2:
-    #     plt.title("Распределение Рэлея")
-    #     wx_rayleigh(wx, sigma)
+        wx_gauss(wx, m, sigma)
+    elif point == 2:
+        plt.title("Распределение Рэлея")
+        wx_rayleigh(wx, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
-    polygon.step_fun(point, a, b, deltaX, N, x, K, index, m, sigma)
+    polygon.step_fun(point, a, b, deltaX, N, x, K, m, sigma)
 
 
 # нахождение плотности непрерывного распределения
@@ -57,7 +55,7 @@ def wx_even(a, b, sum, wx):
 
 
 # нахождение плотности гауссовского распределения
-def wx_gauss(wx, m, sigma, Ymax):
+def wx_gauss(wx, m, sigma):
     # находим границы графика
     a = np.min(wx)
     b = np.max(wx)
@@ -82,7 +80,7 @@ def wx_rayleigh(wx, sigma):
     a = np.min(wx)
     b = np.max(wx)
     # добавляем точки, чтотбы график был гладкий
-    wx = np.linspace(a, b, 1000)
+    wx = np.linspace(a, b, 500)
     wy = []
     for i in range(len(wx)):
         wy.append((wx[i] / sigma ** 2) * np.exp(-(wx[i] ** 2) / (2 * sigma ** 2)))

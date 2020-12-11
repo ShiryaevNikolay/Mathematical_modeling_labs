@@ -59,42 +59,15 @@ def wx_even(a, b, sum, wx):
 
 # нахождение плотности гауссовского распределения
 def wx_gauss(wx, m, sigma):
-    # находим границы графика
-    # a = np.min(wx)
-    # b = np.max(wx)
-    # добавляем точки, чтотбы график был гладкий
-    # wx = np.linspace(a, b, 500)
     wy = []
     for i in range(len(wx)):
         wy.append((1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-1 * (wx[i] - m)**2 / (2 * (sigma ** 2))))
-    # for i in range(len(wy)):
-    #     wy[i] = wy[i] * 300
-    # # находим Ymin чтобы опустить график на ось Х
-    # ymin = np.min(wy)
-    # # опускаем каждое значение У на величину Ymin
-    # for i in range(len(wy)):
-    #     wy[i] = wy[i] - ymin
     plt.plot(wx, wy, color='r')
-    # plt.ylim((None, np.max(wy)))
 
 
 # нахождение плотности элеевского распределения
 def wx_rayleigh(wx, sigma):
-    # находим границы графика
-    # a = np.min(wx)
-    # b = np.max(wx)
-    # добавляем точки, чтотбы график был гладкий
-    # wx = np.linspace(a, b, 500)
     wy = []
     for i in range(len(wx)):
         wy.append((wx[i] / (sigma ** 2)) * np.exp(-(wx[i] ** 2) / (2 * (sigma ** 2))))
-    # # делаем пропорции координат
-    # for i in range(len(wy)):
-    #     wy[i] = wy[i] * 100
-    # # находим Ymin чтобы опустить график на ось Х
-    # ymin = np.min(wy)
-    # # опускаем каждое значение У на величину Ymin
-    # for i in range(len(wy)):
-    #     wy[i] = wy[i] - ymin
     plt.plot(wx, wy, color='r')
-    # plt.ylim((None, np.max(wy)))

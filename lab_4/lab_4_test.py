@@ -24,8 +24,8 @@ def find_xi(a, b, ri):
 # Пункт 2: гауссовский закон с параметрами N(m,б^2) на основе ЦПТ
 # формула замены
 def fun_gauss(v, m, sigma, N):
-    zi = (v - (N/2)) / np.sqrt(N/12)
-    return sigma * zi + m
+    el = np.sqrt(12/N) * (v - (N/2))
+    return sigma * el + m
 
 
 # Пункт 3: Метод Неймана
@@ -54,12 +54,10 @@ sigma = float(input("Введите sigma: "))
 
 # Находим максимум распределения Рэлея
 M = g(sigma, sigma)
-
-# Вводим число интервалов группировки
-# K = int(input(f"Введите количесво интервалов 10<k<21: "))
 # находим выборки для каждого пункта
 for j in range(1000):
     v = 0
+    rj = 0
     for i in range(N):
         ri = np.random.random()
         r.append(ri)
@@ -67,11 +65,11 @@ for j in range(1000):
         if len(x[0]) < 1000:
             # пункт 1: непрерывные величины
             x[0].append(find_xi(a, b, ri))
-        if i > 0 and len(x[2]) < 1000:
+        if len(x[2]) < 1000:
             # пункт 3: метод Неймана
-            # X = sigma * (np.sqrt(-2 * np.log(r[i - 1])))
-            X = a + (b - a) * r[i - 1]
-            if r[i] < g(sigma, X):
+            X = 4 * sigma * r[i - 1]
+            Y = M * r[i]
+            if Y < g(sigma, X):
                 x[2].append(X)
     # пункт 2: ЦПТ
     x[1].append(fun_gauss(v, m, sigma, N))
@@ -91,17 +89,17 @@ if len(x[2]) > 0:
 print("---------------------------------------------")
 print("Равномерное распределение")
 print("m: ", (b + a) / 2)
-print("s2: ", (b - a)**2 / 12)
+print("sigma2: ", (b - a)**2 / 12)
 val.expected(x[0])
 print("---------------------------------------------")
 print("Нормальное распределение (Гаусса)")
 print("m: ", m)
-print("s2: ", sigma)
+print("sigma2: ", sigma ** 2)
 val.variance(x[1], m)
 val.expected(x[1])
 if len(x[2]) > 0:
     print("---------------------------------------------")
     print("Распределение Рэлея")
-    print("m: ", np.sqrt((np.pi * sigma**2) / 2))
-    print("s2: ", sigma)
+    print("m: ", np.sqrt((np.pi * (sigma**2)) / 2))
+    print("sigma2: ", (2 - np.pi/2) * (sigma ** 2))
     val.expected(x[2])

@@ -14,7 +14,7 @@ def step_fun(point, a, b, deltaX, N, x, K, m, sigma):
     F = [0]
     # массив для хранения координат по оси Х
     fx = [a]
-    for q in range(K):
+    for q in range(int(K)):
         sum.append(0)
         # правая граница интервала
         b = a + (q + 1) * deltaX
@@ -38,7 +38,7 @@ def step_fun(point, a, b, deltaX, N, x, K, m, sigma):
     plt.show()
 
 
-# функция непрерывного распределения
+# функция равномерного распределения
 def fx_even(a, b, fx):
     fy = []
     for i in range(len(fx)):

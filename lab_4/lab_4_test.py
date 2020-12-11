@@ -31,7 +31,7 @@ def fun_gauss(v, m, sigma, N):
 # Пункт 3: Метод Неймана
 # нахождение g(x)
 def g(sigma, X):
-    return (X / sigma ** 2) * np.exp(-(X ** 2) / (2 * sigma ** 2))
+    return (X / (sigma ** 2)) * np.exp(-1 * ((X ** 2) / (2 * (sigma ** 2))))
 
 
 # Массив для случайных величин
@@ -56,7 +56,7 @@ sigma = float(input("Введите sigma: "))
 M = g(sigma, sigma)
 
 # Вводим число интервалов группировки
-K = int(input(f"Введите количесво интервалов 10<k<21: "))
+# K = int(input(f"Введите количесво интервалов 10<k<21: "))
 # находим выборки для каждого пункта
 for j in range(1000):
     v = 0
@@ -71,7 +71,7 @@ for j in range(1000):
             # пункт 3: метод Неймана
             # X = sigma * (np.sqrt(-2 * np.log(r[i - 1])))
             X = a + (b - a) * r[i - 1]
-            if M * r[i] < g(sigma, X):
+            if r[i] < g(sigma, X):
                 x[2].append(X)
     # пункт 2: ЦПТ
     x[1].append(fun_gauss(v, m, sigma, N))

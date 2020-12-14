@@ -18,7 +18,7 @@ def input_use(text):
 # Пункт 1: метод обратных функций
 # нахождение x[i] от случайной величины r[i]
 def find_xi(a, b, ri):
-    return ri * (b - a) + a
+    return (ri * (b - a)) + a
 
 
 # Пункт 2: гауссовский закон с параметрами N(m,б^2) на основе ЦПТ
@@ -84,7 +84,7 @@ index = 0
 histogram.histogram(0, x[0], a, b, m, sigma)
 histogram.histogram(1, x[1], (1 - 0.02) * np.min(x[1]), (1 + 0.02) * np.max(x[1]), m, sigma)
 if len(x[2]) > 0:
-    histogram.histogram(2, x[2], (1 - 0.02) * min(x[2]), (1 + 0.02) * max(x[2]), m, sigma)
+    histogram.histogram(2, x[2], 0, 1.02 * max(x[2]), m, sigma)
 
 print("---------------------------------------------")
 print("Равномерное распределение")

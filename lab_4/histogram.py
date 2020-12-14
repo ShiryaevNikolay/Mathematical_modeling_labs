@@ -5,56 +5,54 @@ import numpy as np
 
 def histogram(point, x, a, b, m, sigma):
     N = len(x)
-    # Определяется длина и границы группировки
+    # Определяется длина группировки
     d = b - a
-    k = 1 + np.log2(N)
+    k = int(1 + np.log2(N))
     deltaX = d / k
-    sum = []
     # частоты бi
     g = []
     # wx
-    wx = [a]
+    # wx = [a]
     gx = []
-    for i in range(int(k)):
-        sum.append(0)
+    for i in range(k):
+        sum = 0
         # границы интервала
         deltaiMin = a + i*deltaX
         deltaiMax = a + (i + 1)*deltaX
-        wx.append(deltaiMax)
+        # wx.append(deltaiMax)
         gx.append((deltaiMax + deltaiMin) / 2)
         for j in range(N):
-            if deltaiMin <= x[j] < deltaiMax:
+            if deltaiMin < x[j] <= deltaiMax:
                 # Колличество ki элементов выборки, попавших в
                 # интервал группировки deltai
-                sum[i] += 1
+                sum += 1
         # Определяется частота бi
-        g.append(sum[i] / N)
+        g.append(sum / (N * deltaX))
     # Строим гистограмму
-    plt.bar(gx, g, width=deltaX)
+    plt.bar(gx, g, width=deltaX, alpha=0.5)
     if point == 0:
         plt.title("Равномерное распределение")
         # строим плотность равномерного распределения
-        wx_even(a, b, sum, wx)
+        wx_even(a, b, x)
     elif point == 1:
         plt.title("Нормальное распределение")
         # строим плотность гауссовского распределения
-        wx_gauss(wx, m, sigma)
+        wx_gauss(x, m, sigma)
     elif point == 2:
         plt.title("Распределение Рэлея")
-        wx_rayleigh(wx, sigma)
+        print(np.sort(g))
+        wx_rayleigh(x, sigma)
     plt.show()
     # вызываем функцию построения ступенчатой диаграммы
     polygon.step_fun(point, a, b, deltaX, N, x, k, m, sigma)
 
 
 # нахождение плотности равномерного распределения
-def wx_even(a, b, sum, wx):
-    h = np.sum(sum) / len(sum)
+def wx_even(a, b, wx):
     wy = []
     for i in range(len(wx)):
         wy.append((1 / (b - a)))
     plt.plot(wx, wy, color='r')
-    # plt.ylim((None, np.max(wy)))
 
 
 # нахождение плотности гауссовского распределения
@@ -69,5 +67,5 @@ def wx_gauss(wx, m, sigma):
 def wx_rayleigh(wx, sigma):
     wy = []
     for i in range(len(wx)):
-        wy.append((wx[i] / (sigma ** 2)) * np.exp(-(wx[i] ** 2) / (2 * (sigma ** 2))))
+        wy.append((wx[i] / (sigma ** 2)) * np.exp(-1 * ((wx[i] ** 2) / (2 * (sigma ** 2)))))
     plt.plot(wx, wy, color='r')

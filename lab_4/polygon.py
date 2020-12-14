@@ -10,7 +10,7 @@ def step_fun(point, a, b, deltaX, N, x, K, m, sigma):
     F = [0]
     # массив для хранения координат по оси Х
     fx = [a]
-    for q in range(int(K)):
+    for q in range(K):
         sum.append(0)
         # правая граница интервала
         b = a + (q + 1) * deltaX
@@ -24,13 +24,13 @@ def step_fun(point, a, b, deltaX, N, x, K, m, sigma):
     plt.step(fx, F)
     if point == 0:
         plt.title("Равномерное распределение")
-        fx_even(a, b, fx)
+        fx_even(a, b, x)
     elif point == 1:
         plt.title("Нормальное распределение")
-        fx_gauss(fx, m, sigma)
+        fx_gauss(x, m, sigma)
     elif point == 2:
         plt.title("Распределение Рэлея")
-        fx_rayleigh(fx, sigma)
+        fx_rayleigh(x, sigma)
     plt.show()
 
 

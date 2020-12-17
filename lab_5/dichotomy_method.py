@@ -6,6 +6,8 @@ def dichotomy_method_with_param(eps, a, b, intervalA, intervalB):
     root = (intervalB + intervalA) / 2
     n = 0
     while intervalB - intervalA >= 2 * eps:
+        if abs(derivative_phi_with_param(a, b, root)) >= 1:
+            return print("Итерационный процесс расходится")
         n += 1
         if fun_with_param(a, b, root) == 0:
             break
@@ -23,6 +25,8 @@ def dichotomy_method_without_param(eps, intervalA, intervalB):
     root = (intervalB + intervalA) / 2
     n = 0
     while intervalB - intervalA >= 2 * eps:
+        if abs(derivative_phi(root)) >= 1:
+            return print("Итерационный процесс расходится")
         n += 1
         if fun(root) == 0:
             break

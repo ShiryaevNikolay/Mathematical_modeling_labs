@@ -3,9 +3,13 @@ import matplotlib.pyplot as plt
 
 
 def iteration_method_with_param(x, eps, a, b):
+    if abs(derivative_phi_with_param(a, b, x)) >= 1:
+        return print("Итерационный процесс расходится")
     root = phi_with_param(a, b, x)
     n = 0
     while abs(root - x) >= eps:
+        if abs(derivative_phi_with_param(a, b, root)) >= 1:
+            return print("Итерационный процесс расходится")
         n += 1
         x = root
         root = phi_with_param(a, b, x)
@@ -15,9 +19,13 @@ def iteration_method_with_param(x, eps, a, b):
 
 
 def iteration_method_without_param(x, eps):
+    if abs(derivative_phi(x)) >= 1:
+        return print("Итерационный процесс расходится")
     root = phi(x)
     n = 0
     while abs(root - x) >= eps:
+        if abs(derivative_phi(root)) >= 1:
+            return print("Итерационный процесс расходится")
         n += 1
         x = root
         root = phi(x)

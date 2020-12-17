@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 def newton_method_with_param(x, n, a, b):
     root = x
     for i in range(n):
+        if abs(derivative_phi_with_param(a, b, root)) >= 1:
+            return print("Итерационный процесс расходится")
         root = x - (fun_with_param(a, b, x) / derivative_fun_with_param(a, b, x))
         x = root
     print("Число итераций: ", n)
@@ -15,6 +17,8 @@ def newton_method_with_param(x, n, a, b):
 def newton_method_without_param(x, n):
     root = x
     for i in range(n):
+        if abs(derivative_phi(x)) >= 1:
+            return print("Итерационный процесс расходится")
         root = x - (fun(x) / derivative_fun(x))
         x = root
     print("Число итераций: ", n)

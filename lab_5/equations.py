@@ -19,5 +19,9 @@ def fun(x):
     return x * (2 ** x) - 1
 
 
+def phi(x):
+    return 2 ** (-x)
+
+
 def derivative_fun(x):
     return (2 ** x) * (1 + np.log(2) * x)

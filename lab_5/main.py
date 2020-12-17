@@ -17,11 +17,18 @@ b = float(input("Параметр b: "))
 
 # Строим график функции с параметрами для наглядности
 x = np.linspace(intervalA, intervalB, 1000)
-y = []
-for xi in x:
-    y.append(fun_with_param(a, b, xi))
-plt.plot(x, y)
+y1 = fun_with_param(a, b, x)
+y2 = fun(x)
+plt.plot(x, y1)
+plt.plot(x, y2)
 plt.grid(True)
 
-iteration_method(x0, eps, a, b)
+# Ищем приближение для функции с параметрами
+iteration_method_with_param(x0, eps, a, b)
+# Ищем приближение для функции без параметрами
+iteration_method_without_param(x0, eps)
+
+# Показываем графики для метода простых итераций
 plt.show()
+
+

@@ -1,5 +1,6 @@
 from lab_5.simple_iteration_method import *
 from lab_5.newton_method import *
+from lab_5.dichotomy_method import *
 import matplotlib.pyplot as plt
 
 
@@ -10,23 +11,24 @@ def create_plot(x, y1, y2, title):
     plt.grid(True)
     plt.show()
 
+
 # Вводим начальные значения
+a = float(input("Параметр a: "))
+b = float(input("Параметр b: "))
+
 x0 = int(input("Начальное приближение x0: "))
 eps = float(input("Точность eps: "))
 n = int(input("Число итераций n: "))
-# intervalA = float(input("Граница интервала a: "))
-# intervalB = float(input("Граница интервала b: "))
-intervalA = -1
-intervalB = 1
 
-a = float(input("Параметр a: "))
-b = float(input("Параметр b: "))
+intervalA = float(input("Граница интервала A: "))
+intervalB = float(input("Граница интервала B: "))
+# intervalA = -1
+# intervalB = 1
 
 # Строим график функций для наглядности
 x = np.linspace(intervalA, intervalB, 1000)
 y1 = fun_with_param(a, b, x)
 y2 = fun(x)
-
 
 print("\n-----------------------------------------------------------------")
 print("Метод простых итераций")
@@ -51,5 +53,12 @@ newton_method_without_param(x0, n)
 create_plot(x, y1, y2, "Метод Ньютона")
 
 print("-----------------------------------------------------------------")
+print("Метод дихотомии")
 
+# Ищем приближение для функции с параметрами
+dichotomy_method_with_param(eps, a, b, intervalA, intervalB)
+# Ищем приближение для функции без параметрами
+dichotomy_method_without_param(eps, intervalA, intervalB)
 
+# Показываем графики для метода дихотомии
+create_plot(x, y1, y2, "Метод дихотомии")

@@ -16,7 +16,7 @@ def create_plot(x, y1, y2, title):
 a = float(input("Параметр a: "))
 b = float(input("Параметр b: "))
 
-x0 = int(input("Начальное приближение x0: "))
+x0 = int(input("Начальное приближение x: "))
 eps = float(input("Точность eps: "))
 n = int(input("Число итераций n: "))
 

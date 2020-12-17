@@ -10,7 +10,7 @@ def phi_with_param(a, b, x):
     return a * np.exp(-1 * (b * x))
 
 
-def derivative_phi_with_param(a, b, x):
+def derivative_fun_with_param(a, b, x):
     return -1 * a * b * np.exp(-1 * (b * x)) - 1
 
 

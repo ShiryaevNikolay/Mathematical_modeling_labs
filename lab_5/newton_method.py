@@ -7,6 +7,7 @@ def newton_method_with_param(x, n, a, b):
     for i in range(n):
         root = x - (fun_with_param(a, b, x) / derivative_fun_with_param(a, b, x))
         x = root
+    print("Число итераций: ", n)
     print("С параметрами: ", root)
     plt.scatter(root, 0)
 
@@ -16,5 +17,6 @@ def newton_method_without_param(x, n):
     for i in range(n):
         root = x - (fun(x) / derivative_fun(x))
         x = root
+    print("Число итераций: ", n)
     print("Без параметров: ", root)
     plt.scatter(root, 0)

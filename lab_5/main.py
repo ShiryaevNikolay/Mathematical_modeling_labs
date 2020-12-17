@@ -22,8 +22,6 @@ n = int(input("Число итераций n: "))
 
 intervalA = float(input("Граница интервала A: "))
 intervalB = float(input("Граница интервала B: "))
-# intervalA = -1
-# intervalB = 1
 
 # Строим график функций для наглядности
 x = np.linspace(intervalA, intervalB, 1000)

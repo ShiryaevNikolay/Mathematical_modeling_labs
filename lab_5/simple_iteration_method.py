@@ -2,7 +2,7 @@ from lab_5.equations import *
 import matplotlib.pyplot as plt
 
 
-def iteration_method_with_param(x, eps, a, b):
+def iteration_method_with_param(x, eps, number, a, b):
     if abs(derivative_phi_with_param(a, b, x)) >= 1:
         return print("Итерационный процесс расходится")
     root = phi_with_param(a, b, x)
@@ -14,11 +14,11 @@ def iteration_method_with_param(x, eps, a, b):
         x = root
         root = phi_with_param(a, b, x)
     print("Число итераций: ", n)
-    print("С параметрами: ", root)
+    print("С параметрами: ", round(root, number))
     plt.scatter(root, 0)
 
 
-def iteration_method_without_param(x, eps):
+def iteration_method_without_param(x, eps, number):
     if abs(derivative_phi(x)) >= 1:
         return print("Итерационный процесс расходится")
     root = phi(x)
@@ -30,5 +30,5 @@ def iteration_method_without_param(x, eps):
         x = root
         root = phi(x)
     print("Число итераций: ", n)
-    print("Без параметров: ", root)
+    print("Без параметров: ", round(root, number))
     plt.scatter(root, 0)

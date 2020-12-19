@@ -2,7 +2,7 @@ from lab_5.equations import *
 import matplotlib.pyplot as plt
 
 
-def dichotomy_method_with_param(eps, a, b, intervalA, intervalB):
+def dichotomy_method_with_param(eps, number, a, b, intervalA, intervalB):
     root = (intervalB + intervalA) / 2
     n = 0
     while intervalB - intervalA >= 2 * eps:
@@ -17,11 +17,11 @@ def dichotomy_method_with_param(eps, a, b, intervalA, intervalB):
             intervalA = root
         root = (intervalB + intervalA) / 2
     print("Число итераций: ", n)
-    print("С параметрами: ", root)
+    print("С параметрами: ", round(root, number))
     plt.scatter(root, 0)
 
 
-def dichotomy_method_without_param(eps, intervalA, intervalB):
+def dichotomy_method_without_param(eps, number, intervalA, intervalB):
     root = (intervalB + intervalA) / 2
     n = 0
     while intervalB - intervalA >= 2 * eps:
@@ -36,5 +36,5 @@ def dichotomy_method_without_param(eps, intervalA, intervalB):
             intervalA = root
         root = (intervalB + intervalA) / 2
     print("Число итераций: ", n)
-    print("Без параметров: ", root)
+    print("Без параметров: ", round(root, number))
     plt.scatter(root, 0)

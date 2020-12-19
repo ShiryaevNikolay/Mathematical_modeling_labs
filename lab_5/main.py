@@ -18,6 +18,11 @@ b = float(input("Параметр b: "))
 
 x0 = int(input("Начальное приближение x: "))
 eps = float(input("Точность eps: "))
+
+# Узнаем количество знаков после запятой
+s = str(eps)
+number = abs(s.find('.') - len(s)) - 1
+
 n = int(input("Число итераций n: "))
 
 intervalA = float(input("Граница интервала A: "))
@@ -32,9 +37,9 @@ print("\n-----------------------------------------------------------------")
 print("Метод простых итераций")
 
 # Ищем приближение для функции с параметрами
-iteration_method_with_param(x0, eps, a, b)
+iteration_method_with_param(x0, eps, number, a, b)
 # Ищем приближение для функции без параметрами
-iteration_method_without_param(x0, eps)
+iteration_method_without_param(x0, eps, number)
 
 # Показываем графики для метода простых итераций
 create_plot(x, y1, y2, "Метод простых итераций")
@@ -43,9 +48,9 @@ print("-----------------------------------------------------------------")
 print("Метод Ньютона")
 
 # Ищем приближение для функции с параметрами
-newton_method_with_param(x0, n, a, b)
+newton_method_with_param(x0, n, a, b, eps, number)
 # Ищем приближение для функции без параметрами
-newton_method_without_param(x0, n)
+newton_method_without_param(x0, n, eps, number)
 
 # Показываем графики для метода Ньютона
 create_plot(x, y1, y2, "Метод Ньютона")
@@ -54,9 +59,9 @@ print("-----------------------------------------------------------------")
 print("Метод дихотомии")
 
 # Ищем приближение для функции с параметрами
-dichotomy_method_with_param(eps, a, b, intervalA, intervalB)
+dichotomy_method_with_param(eps, number, a, b, intervalA, intervalB)
 # Ищем приближение для функции без параметрами
-dichotomy_method_without_param(eps, intervalA, intervalB)
+dichotomy_method_without_param(eps, number, intervalA, intervalB)
 
 # Показываем графики для метода дихотомии
 create_plot(x, y1, y2, "Метод дихотомии")

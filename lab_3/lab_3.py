@@ -30,7 +30,7 @@ def paintGraph(x, y):
     return plt
 
 # Запрашиваем ввод пользователя
-n = inputUser(len(points[0][0]))
+n = inputUser(k)
 
 x = points[0][0]
 y = points[0][1]

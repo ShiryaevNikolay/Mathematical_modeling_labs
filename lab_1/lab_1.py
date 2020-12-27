@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Путь к файлу с данными
-dataFilePath = (r"data_points.xlsx")
+dataFilePath = (r"../data_points.xlsx")
 
 # Открываем файл
 data = xlrd.open_workbook(dataFilePath, on_demand=True)
@@ -32,12 +32,13 @@ def paintGraph(inputData, points):
         if int(inputData[0]) == 0:
             # Пробегаемся по каждому набору координат отдельного графика
             for point in range(len(points)):
-                # Создаем таблицу координат
-                df1 = pd.DataFrame({"x1": points[point][0], "y": points[point][1]})
-                # Выводим в консоль для наглядности
-                print(df1)
-                # Строим график для текущего набора координат
-                plt.scatter(df1["x1"], df1["y"])
+                # # Создаем таблицу координат
+                # df1 = pd.DataFrame({"x1": points[point][0], "y": points[point][1]})
+                # # Выводим в консоль для наглядности
+                # print(df1)
+                # # Строим график для текущего набора координат
+                # plt.scatter(df1["x1"], df1["y"])
+                plt.scatter(points[point][0], points[point][1])
             plt.show()
         else:   # Иначе рисуем один график
             # Создаем таблицу координат
@@ -109,6 +110,7 @@ def showGraph(lists):
     for sheet in range(lists):
         points.append(getData(data.sheet_by_index(sheet)))
     # Запрашиваем пользовательский ввод
+    print(points)
     inputUser(points)
 
 # Запускаем код

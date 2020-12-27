@@ -14,6 +14,9 @@ def findNewCoordinates(x, y):
     y = np.array(y, dtype=float)
     # Находим новые координаты
     for i in range(1, len(x)-1):
+        x1 = x[i-1]
+        x2 = x[i]
+        x3 = x[i+1]
         xnew = np.linspace(np.min(x[i-1]), np.max(x[i+1]), 100)
         ynew = [fun.piecewice_parabolic_interpolation(x, y, i, xl) for xl in xnew]
         # Если это первая парабола, то рисуем ее целиком и переходим к следующей параболе
@@ -24,7 +27,7 @@ def findNewCoordinates(x, y):
         xtemp = []
         ytemp = []
         # Пробегаем по второй половине массивов xnew и ynew и заполняем новые массивы xtemp и  temp
-        for j in range(len(xnew) // 2, len(xnew)):
+        for j in range(int(len(xnew) * ((x2 - x1) / (x3 - x1))), len(xnew)):
             xtemp.append(xnew[j])
             ytemp.append(ynew[j])
         graph.plot(xtemp, ytemp)
